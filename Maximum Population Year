@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maximumPopulation(vector<vector<int>>& logs) {
+        constexpr int kMinYear = 1950;
+        constexpr int kMaxYear = 2050;
+        vector<int> population(kMaxYear + 1);
+        for (const auto& log : logs) {
+            ++population[log[0]];
+            --population[log[1]];
+        }
+        int maxPop = 0, curr = 0, ans = kMinYear;
+        for (int year = kMinYear; year <= kMaxYear; ++year) {
+            curr += population[year];
+            if (curr > maxPop) {
+                maxPop = curr;
+                ans = year;
+            }
+        }
+        return ans;
+    }
+};
